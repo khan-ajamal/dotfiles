@@ -1,0 +1,7 @@
+[core]
+	excludesfile = .global_git_ignore
+[user]
+	name = Ajamal Khan
+	email = 13559558+khan-ajamal@users.noreply.github.com
+[init]
+	defaultBranch = main
