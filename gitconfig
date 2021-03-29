@@ -1,5 +1,6 @@
 [core]
 	excludesfile = .global_gitignore
+	editor = vim
 [user]
 	name = Ajamal Khan
 	email = 13559558+khan-ajamal@users.noreply.github.com

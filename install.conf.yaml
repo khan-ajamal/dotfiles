@@ -7,6 +7,12 @@
 - link:
     ~/.gitconfig:
     ~/.gitignore:
+    ~/.zshrc:
+    ~/.zshenv:
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - 
+    command: ./setup_homebrew.zsh
+    stdout: true
+    stderr: true
