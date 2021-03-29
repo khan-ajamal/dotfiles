@@ -1,5 +1,5 @@
 [core]
-	excludesfile = .global_git_ignore
+	excludesfile = .global_gitignore
 [user]
 	name = Ajamal Khan
 	email = 13559558+khan-ajamal@users.noreply.github.com
