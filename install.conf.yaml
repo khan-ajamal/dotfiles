@@ -6,7 +6,7 @@
 
 - link:
     ~/.gitconfig:
-    ~/.gitignore:
+    ~/.global_gitignore:
     ~/.zshrc:
     ~/.zshenv:
 
