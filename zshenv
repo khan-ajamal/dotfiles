@@ -22,12 +22,10 @@ function mkcd {
 }
 
 # Modifying `cd` command
-# If the directory contains venv folder, then activate the virtual environment
+# If the directory contains venv/bin/activate file, then activate the virtual environment
 function cd() {
     builtin cd "$@"
-    venv=$(eval "ls | grep venv")
-    if [ -n "$venv" ]; then
-        echo "Virtual Environment found"
+    if [ -f "venv/bin/activate" ]; then
         echo "Activating virtual environment"
         source venv/bin/activate
         echo "Virtual environment activated"
