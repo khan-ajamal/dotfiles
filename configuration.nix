@@ -38,9 +38,6 @@
 					app = "/System/Applications/System Settings.app";
 				}
 				{
-					app = "/Applications/Safari.app";
-				}
-				{
 					app = "/Applications/Ghostty.app";
 				}
 				{
