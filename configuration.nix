@@ -3,7 +3,7 @@
 {
 	# Determinate already manges the Nix daemon, so nix-darwin shouldn't
 	nix.enable = false;
-	
+
 	nixpkgs.config.allowUnfree = true;
 	nixpkgs.hostPlatform = "aarch64-darwin";
 
@@ -40,6 +40,18 @@
 				{
 					app = "/Applications/Safari.app";
 				}
+				{
+					app = "/Applications/Ghostty.app";
+				}
+				{
+					app = "/Applications/Obsidian.app";
+				}
+				{
+					app = "/Applications/Visual Studio Code.app";
+				}
+				{
+					app = "/Applications/Google Chrome.app";
+				}
 			];
 			show-recents = false;
 		};
@@ -64,14 +76,14 @@
 		autoMigrate = true;
 		inherit user;
 	};
-	
+
 	homebrew = {
 		enable = true;
 	    	onActivation.cleanup = "uninstall";
 	    	onActivation.autoUpdate = true;
 		onActivation.upgrade = true;
 		enableZshIntegration = true;
-		
+
 		casks = [
 			"google-chrome"
 			"ghostty"

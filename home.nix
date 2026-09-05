@@ -21,12 +21,25 @@ in
 			bindkey '^f' autosuggest-accept
 		'';
 	};
-	
+
+	programs.starship = {
+		enable = true;
+		settings = {
+			add_newline = false;
+			format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
+			character = {
+				success_symbol = "[❯](purple)";
+				error_symbol = "[❯](red)";
+			};
+			cmd_duration.format = "[$duration]($style) ";
+		};
+	};
+
 	programs.mise = {
 		enable = true;
 		enableZshIntegration = true;
 	};
-	
+
 	programs.neovim = {
 		enable = true;
 		defaultEditor = true;
@@ -39,12 +52,10 @@ in
 		enable = true;
 		settings = {
 			user.name = "Ajamal Khan";
-			user.email = "ajamalkhan65@gmail.com";
-			extraConfig = {
-				init.defaultBranch = "main";
-				diff.algorithm = "histogram";
-				branch.sort = "-committerdate";
-			};
+			user.email = "13559558+khan-ajamal@users.noreply.github.com";
+			init.defaultBranch = "main";
+			diff.algorithm = "histogram";
+			branch.sort = "-committerdate";
 			alias = {
 				s = "status -sb";
 				lg = "log --oneline --graph --decorate -20";
@@ -62,9 +73,9 @@ in
 
 	# Edit-in-place: the real file stays in my repo, ~/.config just points at it.
 	home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
+	home.file.".config/ghostty".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/ghostty";
+
 	home.file.".claude/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.claude/settings.json";
-
-
 	home.file.".claude/CLAUDE.md".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
 	home.file.".codex/AGENTS.md".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
 	home.file.".config/opencode/AGENTS.md".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
