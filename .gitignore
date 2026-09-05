@@ -1,0 +1,29 @@
+# Secrets. This repo symlinks files straight into $HOME, so it is easy to
+# accidentally stage a credential file that landed under home/.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.keychain
+id_rsa*
+id_ecdsa*
+id_ed25519*
+**/.ssh/
+**/.aws/credentials
+**/.config/gh/hosts.yml
+**/.netrc
+
+# Nix build symlinks
+result
+result-*
+
+# home-manager writes these when it replaces a file it did not create
+*.backup
+
+# direnv
+.direnv/
+
+# macOS
+.DS_Store
+*.swp
