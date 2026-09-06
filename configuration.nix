@@ -1,4 +1,14 @@
-{ pkgs, user, ... }:
+{ pkgs, user, bulkStore, ... }:
+
+let
+	# Android Studio is ~2GB of app bundle. appdir only moves the bundle; the SDK,
+	# AVD images and Gradle caches are the tens of gigabytes, and home.nix steers
+	# those with the Android environment variables.
+	android-studio =
+		if bulkStore == null
+		then "android-studio"
+		else { name = "android-studio"; args.appdir = "${bulkStore}/Applications"; };
+in
 
 {
 	# Determinate already manges the Nix daemon, so nix-darwin shouldn't
@@ -94,6 +104,12 @@
 			"claude-code"
 			"obsidian"
 			"visual-studio-code"
+
+			# Expo Android builds. Expo pins Zulu 17 specifically, since Gradle
+			# needs a JDK 17. Its .pkg always lands in /Library/Java and cannot be
+			# relocated, but that is only ~330MB.
+			"zulu@17"
+			android-studio
 		];
 	};
 }

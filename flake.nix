@@ -17,10 +17,16 @@
 	outputs = inputs@{ self, nix-darwin, nix-homebrew, home-manager, nixpkgs }:
 		let
 			user = "ajamalkhan";
+
+			# Machine-shaped knob. Where bulky SDKs, caches and app bundles live
+			# when the internal drive is too small to hold them. Set it to null on
+			# a Mac with room to spare and every path below falls back to the
+			# stock macOS location under $HOME and /Applications.
+			bulkStore = "/Volumes/SSD";
 		in
 		{
 			darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
-				specialArgs = { inherit user; };
+				specialArgs = { inherit user bulkStore; };
 				modules = [
 					./configuration.nix
 					nix-homebrew.darwinModules.nix-homebrew
@@ -28,7 +34,7 @@
 					{
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
-						home-manager.extraSpecialArgs = { inherit user; };
+						home-manager.extraSpecialArgs = { inherit user bulkStore; };
 						home-manager.users.${user} = import ./home.nix;
 						home-manager.backupFileExtension = "backup";
 					}

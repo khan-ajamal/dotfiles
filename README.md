@@ -50,10 +50,33 @@ nix flake update && ./rebuild.sh
 
 | Path | What lives there |
 | --- | --- |
-| `flake.nix` | Inputs, the `user` name, and the `mac` host definition |
+| `flake.nix` | Inputs, the `user` name, `bulkStore`, and the `mac` host definition |
 | `configuration.nix` | System scope: macOS defaults, Dock, Finder, Homebrew casks |
 | `home.nix` | User scope: packages, zsh, starship, git, neovim, direnv |
 | `home/` | Real config files, symlinked into `~` (see below) |
+
+## Big SDKs on an external drive
+
+`bulkStore` in `flake.nix` is the one knob for machines whose internal disk cannot
+hold the Android toolchain. Set to a mounted volume it redirects the Android
+Studio app bundle, the SDK, AVD images and the Gradle cache there. Set to `null`
+everything reverts to the stock macOS locations, which is what you want on a Mac
+with room to spare:
+
+```nix
+bulkStore = "/Volumes/SSD";   # or null
+```
+
+Two things it cannot do for you:
+
+- **Android Studio's first-run wizard ignores `ANDROID_HOME`.** Choose a custom
+  SDK location and point it at `$ANDROID_HOME` (`echo $ANDROID_HOME`) or Studio
+  will quietly install ~10GB to `~/Library/Android/sdk` on the internal drive.
+- **The volume has to be mounted.** With the drive detached, `adb`, Gradle and the
+  emulator fail, since every path above points into it.
+
+Xcode is not managed here at all. It came from the App Store and is already on the
+SSD; `xcode-select -p` is the source of truth for where.
 
 ## Editing config files
 
