@@ -1,4 +1,4 @@
-{ user, ... }:
+{ pkgs, user, ... }:
 
 {
 	# Determinate already manges the Nix daemon, so nix-darwin shouldn't
@@ -16,6 +16,11 @@
 		enable = true;
 		enableCompletion = false;
 	};
+
+	# Ghostty embeds Symbols Nerd Font, so the starship language glyphs already
+	# render there. Installing it system-wide means they survive a move to any
+	# other terminal instead of degrading to tofu boxes.
+	fonts.packages = [ pkgs.nerd-fonts.symbols-only ];
 	# It is not a version of nix-darwin — it's a marker of which release you first set this machine up under. Some settings changed defaults over time in ways that would break existing systems, so nix-darwin keys those behaviors off this number. Set it once at install, then leave it alone forever. Bumping it later can silently change how things behave.
 	system.stateVersion = 6;
 
@@ -80,6 +85,8 @@
 	    	onActivation.autoUpdate = true;
 		onActivation.upgrade = true;
 		enableZshIntegration = true;
+
+        brews = [ "cocoapods" ];
 
 		casks = [
 			"google-chrome"

@@ -1,3 +1,4 @@
 font-size = 18
 theme = Atom One Dark
 background-opacity = 0.95
+cursor-style = block

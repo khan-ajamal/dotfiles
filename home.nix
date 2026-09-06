@@ -17,8 +17,13 @@ in
 		enable = true;
 		autosuggestion.enable = true;      # ghost text from history
 		syntaxHighlighting.enable = true;  # commands turn green when valid
+		# Real .zsh files instead of a growing Nix string: no ''${...} escaping,
+		# and editor syntax highlighting works. (N) is zsh's nullglob, so an
+		# empty or missing directory is not an error.
 		initContent = ''
-			bindkey '^f' autosuggest-accept
+			for f in ${config.xdg.configHome}/zsh/*.zsh(N); do
+				source "$f"
+			done
 		'';
 	};
 
@@ -26,18 +31,27 @@ in
 		enable = true;
 		settings = {
 			add_newline = false;
-			format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
+			# Language modules are self-hiding: nodejs only renders where a
+			# package.json/.nvmrc/node_modules exists, golang only where a
+			# go.mod/*.go does, python only where a pyproject.toml/requirements.txt
+			# /.python-version does. Add more by appending $rust, $ruby, ... here.
+			format = "$directory$git_branch$git_status$nodejs$golang$python$package$cmd_duration$line_break$character";
 			character = {
 				success_symbol = "[❯](purple)";
 				error_symbol = "[❯](red)";
 			};
 			cmd_duration.format = "[$duration]($style) ";
+			golang.symbol = " ";   # nerd-font glyphs, to match nodejs' default
+			python.symbol = " ";
 		};
 	};
 
 	programs.mise = {
 		enable = true;
 		enableZshIntegration = true;
+		globalConfig.settings = {
+			idiomatic_version_file_enable_tools = [ "node" ];
+		};
 	};
 
 	programs.neovim = {
@@ -54,6 +68,9 @@ in
 			user.name = "Ajamal Khan";
 			user.email = "13559558+khan-ajamal@users.noreply.github.com";
 			init.defaultBranch = "main";
+			# Track the executable bit, so a chmod +x on a script survives a clone
+			# instead of coming back as 644 on the next machine.
+			core.fileMode = true;
 			diff.algorithm = "histogram";
 			branch.sort = "-committerdate";
 			alias = {
@@ -74,6 +91,7 @@ in
 	# Edit-in-place: the real file stays in my repo, ~/.config just points at it.
 	home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
 	home.file.".config/ghostty".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/ghostty";
+	home.file.".config/zsh".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/zsh";
 
 	home.file.".claude/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.claude/settings.json";
 	home.file.".claude/CLAUDE.md".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
