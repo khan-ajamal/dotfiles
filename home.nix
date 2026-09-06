@@ -1,15 +1,7 @@
-{ config, lib, pkgs, user, bulkStore, ... }:
+{ config, pkgs, user, android, ... }:
 
 let
 	dotfiles = "${config.home.homeDirectory}/.dotfiles";
-
-	# Expo's Android toolchain: the SDK alone is ~10GB before a single emulator
-	# image, and Gradle's cache grows without bound. bulkStore decides whether
-	# that lands on the external drive or in the stock macOS locations.
-	androidSdk =
-		if bulkStore == null
-		then "${config.home.homeDirectory}/Library/Android/sdk"
-		else "${bulkStore}/Android/sdk";
 in
 
 {
@@ -21,21 +13,17 @@ in
 		uv
 	];
 
+	# Written to a script that shells source at startup, so this reaches
+	# anything launched from a terminal. GUI launches come from launchd, which
+	# never sources a shell profile, so configuration.nix covers those.
 	home.sessionVariables = {
 		JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
-		ANDROID_HOME = androidSdk;
-	}
-	# Only worth overriding when they would otherwise fill the internal drive;
-	# on a roomy Mac the tools' own defaults are the better answer.
-	// lib.optionalAttrs (bulkStore != null) {
-		ANDROID_AVD_HOME = "${bulkStore}/Android/avd";
-		GRADLE_USER_HOME = "${bulkStore}/Android/gradle";
-	};
+	} // android.env;
 
 	home.sessionPath = [
-		"${androidSdk}/platform-tools"   # adb
-		"${androidSdk}/emulator"
-		"${androidSdk}/cmdline-tools/latest/bin"
+		"${android.sdk}/platform-tools"   # adb
+		"${android.sdk}/emulator"
+		"${android.sdk}/cmdline-tools/latest/bin"
 	];
 
 	programs.zsh = {

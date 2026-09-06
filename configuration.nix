@@ -1,13 +1,13 @@
-{ pkgs, user, bulkStore, ... }:
+{ pkgs, user, android, ... }:
 
 let
 	# Android Studio is ~2GB of app bundle. appdir only moves the bundle; the SDK,
-	# AVD images and Gradle caches are the tens of gigabytes, and home.nix steers
-	# those with the Android environment variables.
+	# AVD images and Gradle caches are the tens of gigabytes, and the Android
+	# environment variables below steer those.
 	android-studio =
-		if bulkStore == null
+		if android.appdir == null
 		then "android-studio"
-		else { name = "android-studio"; args.appdir = "${bulkStore}/Applications"; };
+		else { name = "android-studio"; args.appdir = android.appdir; };
 in
 
 {
@@ -21,6 +21,14 @@ in
 	users.users.${user} = {
 		home = "/Users/${user}";
 	};
+
+	# home.nix sets the same variables for shells. Apps opened from the Dock or
+	# Spotlight are started by launchd, which never sources a shell profile, so
+	# they need registering here too. Without it, an emulator created in Android
+	# Studio's Device Manager lands in ~/.android/avd on the internal drive -
+	# exactly what bulkStore exists to avoid. Activation runs `launchctl setenv`,
+	# so it takes effect on rebuild, but only for apps started after that.
+	launchd.user.envVariables = android.env;
 
 	programs.zsh = {
 		enable = true;

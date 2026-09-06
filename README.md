@@ -67,11 +67,21 @@ with room to spare:
 bulkStore = "/Volumes/SSD";   # or null
 ```
 
-Two things it cannot do for you:
+The paths are derived once in `flake.nix` as `android`, then consumed twice,
+because macOS has two separate environments:
 
-- **Android Studio's first-run wizard ignores `ANDROID_HOME`.** Choose a custom
-  SDK location and point it at `$ANDROID_HOME` (`echo $ANDROID_HOME`) or Studio
-  will quietly install ~10GB to `~/Library/Android/sdk` on the internal drive.
+- `home.nix` puts them in `home.sessionVariables`, which reaches anything started
+  from a terminal.
+- `configuration.nix` puts them in `launchd.user.envVariables`, which reaches
+  anything started from the Dock or Spotlight. Without this, an emulator created
+  in Android Studio's Device Manager would land in `~/.android/avd` on the
+  internal drive. It applies on rebuild, but only to apps launched afterwards.
+
+Two things it still cannot do for you:
+
+- **Android Studio's first-run wizard stores its own SDK path.** It reads
+  `ANDROID_HOME` as a hint, but confirm the location it offers matches
+  `echo $ANDROID_HOME` or it may install ~10GB to the internal drive anyway.
 - **The volume has to be mounted.** With the drive detached, `adb`, Gradle and the
   emulator fail, since every path above points into it.
 
