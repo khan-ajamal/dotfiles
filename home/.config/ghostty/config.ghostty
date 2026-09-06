@@ -1,4 +1,9 @@
 font-size = 18
 theme = Atom One Dark
 background-opacity = 0.95
+# block is already the default, but shell integration overrides it to a bar at
+# the prompt, so the style only holds once its cursor feature is off. Naming one
+# no-* flag opts out of that flag alone; the rest keep their defaults, so title
+# and path stay on (sudo and the ssh-* features are off by default anyway).
 cursor-style = block
+shell-integration-features = no-cursor
