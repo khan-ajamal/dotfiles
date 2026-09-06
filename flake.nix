@@ -30,11 +30,18 @@
 			# shell environment (home.nix) and the GUI environment
 			# (configuration.nix) have to name the same directories or the CLI
 			# and Android Studio end up writing to two different drives.
+			# The SDK path is the stock macOS one with $HOME swapped for
+			# bulkStore, rather than a tidier layout of our own: Android Studio's
+			# setup wizard offers that same path under whichever volume you point
+			# it at, and matching it is what keeps the SDK location the IDE
+			# records for itself from drifting away from ANDROID_HOME. The AVD and
+			# Gradle directories have no such constraint, so they sit beside the
+			# SDK instead of at their stock dotfile paths.
 			android = rec {
 				sdk =
 					if bulkStore == null
 					then "/Users/${user}/Library/Android/sdk"
-					else "${bulkStore}/Android/sdk";
+					else "${bulkStore}/Library/Android/sdk";
 
 				# null leaves the Studio cask in /Applications.
 				appdir = if bulkStore == null then null else "${bulkStore}/Applications";
@@ -44,8 +51,8 @@
 				# the tools' own defaults under $HOME are the better answer.
 				env = { ANDROID_HOME = sdk; } // (
 					if bulkStore == null then { } else {
-						ANDROID_AVD_HOME = "${bulkStore}/Android/avd";
-						GRADLE_USER_HOME = "${bulkStore}/Android/gradle";
+						ANDROID_AVD_HOME = "${bulkStore}/Library/Android/avd";
+						GRADLE_USER_HOME = "${bulkStore}/Library/Android/gradle";
 					}
 				);
 			};

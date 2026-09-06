@@ -1,4 +1,4 @@
-{ pkgs, user, android, ... }:
+{ lib, pkgs, user, android, ... }:
 
 let
 	# Android Studio is ~2GB of app bundle. appdir only moves the bundle; the SDK,
@@ -26,9 +26,24 @@ in
 	# Spotlight are started by launchd, which never sources a shell profile, so
 	# they need registering here too. Without it, an emulator created in Android
 	# Studio's Device Manager lands in ~/.android/avd on the internal drive -
-	# exactly what bulkStore exists to avoid. Activation runs `launchctl setenv`,
-	# so it takes effect on rebuild, but only for apps started after that.
-	launchd.user.envVariables = android.env;
+	# exactly what bulkStore exists to avoid.
+	#
+	# This is an agent rather than `launchd.user.envVariables`, which nix-darwin
+	# implements as a bare `launchctl setenv` inside the activation script. The
+	# boot-time activation daemon (org.nixos.activate-system) only runs the
+	# checks, etc and keyboard activation scripts - not the launchd section - so
+	# those setenv calls happen on `darwin-rebuild switch` and never again, and
+	# the values were gone by the next restart. RunAtLoad re-runs them at every
+	# login, and activation loads the agent, so a rebuild still applies them
+	# without logging out.
+	launchd.user.agents.android-env = {
+		script = lib.concatLines (
+			lib.mapAttrsToList
+				(name: value: "/bin/launchctl setenv ${name} ${lib.escapeShellArg value}")
+				android.env
+		);
+		serviceConfig.RunAtLoad = true;
+	};
 
 	programs.zsh = {
 		enable = true;
