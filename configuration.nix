@@ -128,6 +128,12 @@ in
 			"obsidian"
 			"visual-studio-code"
 
+			# Docker Desktop's replacement: same `docker` and `docker compose`
+			# CLIs, a fraction of the idle RAM, and bind mounts that are fast
+			# enough to run a node_modules-heavy project out of. Free for
+			# personal use; a paid licence starts at commercial use.
+			"orbstack"
+
 			# Expo Android builds. Expo pins Zulu 17 specifically, since Gradle
 			# needs a JDK 17. Its .pkg always lands in /Library/Java and cannot be
 			# relocated, but that is only ~330MB.
