@@ -5,7 +5,8 @@
   "workflowKeywordTriggerEnabled": false,
   "enabledPlugins": {
     "ponytail@ponytail": true,
-    "humanizer@humanizer": true
+    "humanizer@humanizer": true,
+    "superpowers@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {

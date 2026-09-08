@@ -9,6 +9,7 @@ in
 	home.homeDirectory = "/Users/${user}";
 	home.stateVersion = "26.05";
 	home.packages = with pkgs; [
+		ffmpeg    # audio/video conversion
 		jq        # json on the command line
 		uv
 		# Mobile UI test runner. Its own docs only offer a curl script or a
