@@ -1,10 +1,28 @@
 {
   "permissions": {
-    "defaultMode": "manual"
+    "defaultMode": "default"
   },
   "workflowKeywordTriggerEnabled": false,
+  "enabledPlugins": {
+    "ponytail@ponytail": true,
+    "humanizer@humanizer": true
+  },
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "humanizer": {
+      "source": {
+        "source": "github",
+        "repo": "blader/humanizer"
+      }
+    }
+  },
   "awaySummaryEnabled": false,
   "theme": "dark-ansi",
-  "agentPushNotifEnabled": false,
-  "remoteControlAtStartup": false
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": false
 }
