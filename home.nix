@@ -11,6 +11,13 @@ in
 	home.packages = with pkgs; [
 		jq        # json on the command line
 		uv
+		# Mobile UI test runner. Its own docs only offer a curl script or a
+		# homebrew tap, but nixpkgs carries it, which keeps it pinned by
+		# flake.lock like everything else. The launcher is a JVM start script
+		# and picks up JAVA_HOME below, so Zulu 17 runs it - past maestro's
+		# "Java 17 or higher" floor. Bumping it means `nix flake update`, so
+		# expect to trail upstream's own releases.
+		maestro
 	];
 
 	# Written to a script that shells source at startup, so this reaches
