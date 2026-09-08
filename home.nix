@@ -69,8 +69,17 @@ in
 	programs.mise = {
 		enable = true;
 		enableZshIntegration = true;
-		globalConfig.settings = {
-			idiomatic_version_file_enable_tools = [ "node" ];
+		globalConfig = {
+			settings = {
+				idiomatic_version_file_enable_tools = [ "node" ];
+			};
+			# home-manager writes ~/.config/mise/config.toml as a read-only nix
+			# store symlink, so `mise use --global` cannot edit it. Global tool
+			# pins go here instead; `mise use` still works per project, where
+			# the .mise.toml is a normal writable file.
+			tools = {
+				node = "24";
+			};
 		};
 	};
 
