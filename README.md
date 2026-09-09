@@ -1,5 +1,7 @@
 # dotfiles
 
+![Declarative macOS setup with nix-darwin, home-manager and nix-homebrew](assets/social-preview.png)
+
 Declarative macOS setup: [nix-darwin](https://github.com/nix-darwin/nix-darwin) for
 system settings, [home-manager](https://github.com/nix-community/home-manager) for
 the user environment, and [nix-homebrew](https://github.com/zhaofengli/nix-homebrew)

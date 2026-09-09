@@ -1,0 +1,79 @@
+<meta charset="utf-8">
+<title>dotfiles social preview</title>
+<style>
+  :root {
+    --bg: #0b0f14;
+    --card: #12181f;
+    --line: #222c37;
+    --fg: #e6edf3;
+    --dim: #8b949e;
+    --green: #7ee787;
+    --blue: #79c0ff;
+    --mono: "SF Mono", Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 640px;
+    background:
+      radial-gradient(900px 520px at 18% -10%, #17324a 0%, transparent 62%),
+      radial-gradient(700px 460px at 100% 110%, #1d2340 0%, transparent 60%),
+      var(--bg);
+    color: var(--fg);
+    font-family: var(--mono);
+    padding: 56px 64px;
+    display: flex; flex-direction: column; gap: 30px;
+  }
+  h1 { font-size: 68px; letter-spacing: -2px; font-weight: 600; }
+  h1 .dot { color: var(--blue); }
+  .tagline { font-size: 25px; color: var(--dim); margin-top: 10px; }
+
+  .term {
+    flex: 1;
+    background: rgba(18, 24, 31, .88);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .bar {
+    height: 46px; flex: none;
+    border-bottom: 1px solid var(--line);
+    background: #171e26;
+    display: flex; align-items: center; padding: 0 18px;
+  }
+  .dots { display: flex; gap: 9px; }
+  .dots i { width: 13px; height: 13px; border-radius: 50%; display: block; }
+  .title { flex: 1; text-align: center; font-size: 16px; color: var(--dim); margin-left: -60px; }
+
+  .body { padding: 20px 30px; font-size: 23px; line-height: 1.5; }
+  .cursor { display: inline-block; width: 12px; height: 23px; background: var(--fg); vertical-align: -4px; }
+  .p { color: var(--green); }
+  .cmd { color: var(--fg); }
+  .ok { color: var(--green); }
+  .what { color: var(--dim); }
+  .arrow { color: var(--blue); }
+  .col { display: inline-block; width: 340px; }
+</style>
+
+<h1>dotfiles<span class="dot">/</span></h1>
+<div class="tagline">Declarative macOS - one command, the same Mac every time.</div>
+
+<div class="term">
+  <div class="bar">
+    <div class="dots">
+      <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
+    </div>
+    <div class="title">~/.dotfiles</div>
+  </div>
+  <div class="body">
+    <div><span class="p">$</span> <span class="cmd">./rebuild.sh</span></div>
+    <div><span class="ok">&#10003;</span> <span class="col">nix-darwin</span><span class="what">system settings</span></div>
+    <div><span class="ok">&#10003;</span> <span class="col">home-manager</span><span class="what">user environment</span></div>
+    <div><span class="ok">&#10003;</span> <span class="col">nix-homebrew</span><span class="what">GUI apps as casks</span></div>
+    <div><span class="ok">&#10003;</span> <span class="col">flake.lock</span><span class="what">pinned, reproducible</span></div>
+    <div>&nbsp;</div>
+    <div><span class="arrow">&#8594;</span> <span class="what">done. 0 drift.</span></div>
+    <div><span class="p">$</span> <span class="cursor"></span></div>
+  </div>
+</div>
