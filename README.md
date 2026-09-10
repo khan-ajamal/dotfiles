@@ -104,6 +104,37 @@ GB this section exists to move.
 Xcode is not managed here at all. It came from the App Store and is already on the
 SSD; `xcode-select -p` is the source of truth for where.
 
+## Things you can move to the SSD if required
+
+Not everything that grows large is worth a knob in `flake.nix`. These are one-off
+moves, done by hand on the machine that needs them.
+
+**The Go module cache.** `~/go/pkg/mod` grows without limit and reached 1.9GB here.
+It is a download cache, so the cheapest fix is to throw it away and let the next
+build refetch only what it needs:
+
+```sh
+go clean -modcache
+```
+
+To keep it off the internal disk instead, point it at the volume. Run `go clean`
+first, because it wipes whatever `GOMODCACHE` currently names:
+
+```sh
+go clean -modcache
+go env -w GOMODCACHE=/Volumes/SSD/go/pkg/mod
+```
+
+`go env -w` writes to `~/Library/Application Support/go/env`, which the `go` binary
+reads on its own, so there is nothing for `home.nix` to set and nothing to rebuild.
+It survives changing the pinned go version, since mise only sets `GOROOT` and
+`PATH` and leaves `GOMODCACHE` alone. `~/go/bin` stays on the internal drive; it is
+small.
+
+Same mounted-volume caveat as above: with the drive detached, any build needing a
+module it has not already got fails, and so does `mise install go:...`, which
+shells out to `go install`.
+
 ## Editing config files
 
 `home.nix` links `home/` into your home directory with `mkOutOfStoreSymlink`, so
