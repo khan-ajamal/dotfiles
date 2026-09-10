@@ -1,13 +1,15 @@
-{ lib, pkgs, user, android, ... }:
+{ lib, pkgs, user, android, appdir, ... }:
 
 let
-	# Android Studio is ~2GB of app bundle. appdir only moves the bundle; the SDK,
-	# AVD images and Gradle caches are the tens of gigabytes, and the Android
-	# environment variables below steer those.
-	android-studio =
-		if android.appdir == null
-		then "android-studio"
-		else { name = "android-studio"; args.appdir = android.appdir; };
+	# Install this cask onto the bulk store instead of /Applications. appdir only
+	# moves the app bundle, so it is worth it for the few big ones. For Android
+	# Studio the ~2GB bundle is the small half - the SDK, AVD images and Gradle
+	# caches are the tens of gigabytes, and the environment variables below steer
+	# those.
+	offInternalDrive = name:
+		if appdir == null
+		then name
+		else { inherit name; args.appdir = appdir; };
 in
 
 {
@@ -128,6 +130,10 @@ in
 			"obsidian"
 			"visual-studio-code"
 
+			# API client. Collections are plain .bru files on disk, so they
+			# live in the project repo instead of a vendor cloud account.
+			(offInternalDrive "bruno")
+
 			# Docker Desktop's replacement: same `docker` and `docker compose`
 			# CLIs, a fraction of the idle RAM, and bind mounts that are fast
 			# enough to run a node_modules-heavy project out of. Free for
@@ -138,7 +144,7 @@ in
 			# needs a JDK 17. Its .pkg always lands in /Library/Java and cannot be
 			# relocated, but that is only ~330MB.
 			"zulu@17"
-			android-studio
+			(offInternalDrive "android-studio")
 		];
 	};
 }

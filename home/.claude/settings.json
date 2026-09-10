@@ -6,7 +6,8 @@
   "enabledPlugins": {
     "ponytail@ponytail": true,
     "humanizer@humanizer": true,
-    "superpowers@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "claude-council@hex-plugins": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -19,6 +20,12 @@
       "source": {
         "source": "github",
         "repo": "blader/humanizer"
+      }
+    },
+    "hex-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "hex/claude-marketplace"
       }
     }
   },

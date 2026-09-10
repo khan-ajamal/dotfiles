@@ -24,6 +24,11 @@
 			# stock macOS location under $HOME and /Applications.
 			bulkStore = "/Volumes/SSD";
 
+			# Where the bulky cask app bundles land. null leaves them in the
+			# stock /Applications. Shared by every cask below that opts in, not
+			# just Android Studio, so they all follow the one knob.
+			appdir = if bulkStore == null then null else "${bulkStore}/Applications";
+
 			# Expo's Android toolchain: ~10GB of SDK before a single emulator
 			# image, a Gradle cache that grows without bound, and a 2GB Studio
 			# bundle. Derived here rather than in either module, because the
@@ -43,9 +48,6 @@
 					then "/Users/${user}/Library/Android/sdk"
 					else "${bulkStore}/Library/Android/sdk";
 
-				# null leaves the Studio cask in /Applications.
-				appdir = if bulkStore == null then null else "${bulkStore}/Applications";
-
 				# The AVD and Gradle locations are only worth overriding when
 				# they would otherwise fill the internal drive; on a roomy Mac
 				# the tools' own defaults under $HOME are the better answer.
@@ -59,7 +61,7 @@
 		in
 		{
 			darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
-				specialArgs = { inherit user android; };
+				specialArgs = { inherit user android appdir; };
 				modules = [
 					./configuration.nix
 					nix-homebrew.darwinModules.nix-homebrew
