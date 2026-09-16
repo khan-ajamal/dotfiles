@@ -81,7 +81,12 @@ in
 			# pins go here instead; `mise use` still works per project, where
 			# the .mise.toml is a normal writable file.
 			tools = {
+				go = "1.27";
 				node = "24";
+				# Go language server, for the gopls-lsp Claude plugin. Pinned here
+				# rather than in home.packages so the mise shims that already
+				# shadow PATH cannot serve a second, different gopls per project.
+				"go:golang.org/x/tools/gopls" = "0.23";
 			};
 		};
 	};

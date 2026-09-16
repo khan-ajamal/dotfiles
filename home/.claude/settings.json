@@ -7,7 +7,11 @@
     "ponytail@ponytail": true,
     "humanizer@humanizer": true,
     "superpowers@claude-plugins-official": true,
-    "claude-council@hex-plugins": true
+    "claude-council@hex-plugins": true,
+    "firebase@firebase": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "grafana-cloud@grafana-skills": true,
+    "expo@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -26,6 +30,18 @@
       "source": {
         "source": "github",
         "repo": "hex/claude-marketplace"
+      }
+    },
+    "firebase": {
+      "source": {
+        "source": "github",
+        "repo": "firebase/firebase-tools"
+      }
+    },
+    "grafana-skills": {
+      "source": {
+        "source": "github",
+        "repo": "grafana/skills"
       }
     }
   },
