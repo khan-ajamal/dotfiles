@@ -9,6 +9,7 @@ in
 	home.homeDirectory = "/Users/${user}";
 	home.stateVersion = "26.05";
 	home.packages = with pkgs; [
+		bat       # cat with syntax highlighting and git markers
 		ffmpeg    # audio/video conversion
 		jq        # json on the command line
 		uv

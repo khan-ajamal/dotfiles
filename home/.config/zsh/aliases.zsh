@@ -58,3 +58,14 @@ alias gsta='git stash push'
 alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gstd='git stash drop'
+
+# Files
+# Safe to shadow cat for unflagged use: when stdout is not a terminal, bat
+# drops colors, line numbers and git markers, so `cat f | grep x` and
+# `cat f > out` are byte-identical to real cat. --paging=never keeps the
+# interactive case from opening less, which plain cat never does, and
+# --no-config stops a stray ~/.config/bat/config from turning colors or
+# decorations back on and corrupting redirected output.
+# Flags differ though: BSD cat takes -belnstuv, bat rejects -b -e -t -v and
+# pads -n differently. Reach for `command cat` when you need those.
+alias cat='bat --no-config --paging=never'
