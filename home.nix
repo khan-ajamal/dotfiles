@@ -30,6 +30,7 @@ in
 	} // android.env;
 
 	home.sessionPath = [
+		"$HOME/.local/bin"                # self-updating installers (agy, ...)
 		"${android.sdk}/platform-tools"   # adb
 		"${android.sdk}/emulator"
 		"${android.sdk}/cmdline-tools/latest/bin"
