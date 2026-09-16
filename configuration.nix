@@ -127,6 +127,7 @@ in
 			"google-chrome"
 			"ghostty"
 			"claude-code"
+			"codex"
 			"obsidian"
 			"visual-studio-code"
 
