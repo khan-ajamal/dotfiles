@@ -2,6 +2,7 @@
   "permissions": {
     "defaultMode": "default"
   },
+  "model": "opus[1m]",
   "workflowKeywordTriggerEnabled": false,
   "enabledPlugins": {
     "ponytail@ponytail": true,
