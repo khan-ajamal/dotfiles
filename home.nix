@@ -66,6 +66,9 @@ in
 			cmd_duration.format = "[$duration]($style) ";
 			golang.symbol = " ";   # nerd-font glyphs, to match nodejs' default
 			python.symbol = " ";
+			# uv does not activate .venv, so plain `python3` is macOS's 3.9.
+			# Ask the project venv first, then fall back to PATH.
+			python.python_binary = [ "./.venv/bin/python" "python" "python3" ];
 		};
 	};
 
