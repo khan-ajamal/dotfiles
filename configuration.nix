@@ -121,7 +121,15 @@ in
 		onActivation.upgrade = true;
 		enableZshIntegration = true;
 
-        brews = [ "cocoapods" ];
+		# MongoDB ships its tools from its own tap, not homebrew-core.
+		taps = [ "mongodb/brew" ];
+
+		brews = [
+			"cocoapods"
+			"gh"
+			# mongodump, mongorestore, mongoexport, mongoimport and friends.
+			"mongodb/brew/mongodb-database-tools"
+		];
 
 		casks = [
 			"google-chrome"
