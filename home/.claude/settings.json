@@ -6,7 +6,7 @@
   "permissions": {
     "defaultMode": "default"
   },
-  "model": "opus[1m]",
+  "model": "opus",
   "workflowKeywordTriggerEnabled": false,
   "enabledPlugins": {
     "ponytail@ponytail": true,
@@ -16,7 +16,9 @@
     "firebase@firebase": true,
     "gopls-lsp@claude-plugins-official": true,
     "grafana-cloud@grafana-skills": true,
-    "expo@claude-plugins-official": true
+    "expo@claude-plugins-official": true,
+    "mongodb-atlas@claude-plugins-official": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -48,6 +50,20 @@
         "source": "github",
         "repo": "grafana/skills"
       }
+    },
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
+    }
+  },
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
     }
   },
   "awaySummaryEnabled": false,
