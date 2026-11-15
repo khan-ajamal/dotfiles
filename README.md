@@ -69,12 +69,13 @@ with room to spare:
 bulkStore = "/Volumes/SSD";   # or null
 ```
 
-The paths are derived once in `flake.nix` as `android`, then consumed twice,
+The paths are derived once in `flake.nix` as `android` and `mise` (mise's tool
+installs and download cache), then consumed twice,
 because macOS has two separate environments:
 
 - `home.nix` puts them in `home.sessionVariables`, which reaches anything started
   from a terminal.
-- `configuration.nix` puts them in a `launchd.user.agents.android-env` agent,
+- `configuration.nix` puts them in a `launchd.user.agents.bulk-store-env` agent,
   which reaches anything started from the Dock or Spotlight. Without this, an
   emulator created in Android Studio's Device Manager would land in
   `~/.android/avd` on the internal drive. The agent runs at login and on

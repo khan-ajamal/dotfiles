@@ -1,4 +1,4 @@
-{ config, pkgs, user, android, ... }:
+{ config, pkgs, user, android, mise, ... }:
 
 let
 	dotfiles = "${config.home.homeDirectory}/.dotfiles";
@@ -27,7 +27,7 @@ in
 	# never sources a shell profile, so configuration.nix covers those.
 	home.sessionVariables = {
 		JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home";
-	} // android.env;
+	} // android.env // mise.env;
 
 	home.sessionPath = [
 		"$HOME/.local/bin"                # self-updating installers (agy, ...)

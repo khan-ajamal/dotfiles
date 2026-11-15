@@ -1,4 +1,4 @@
-{ lib, pkgs, user, android, appdir, ... }:
+{ lib, pkgs, user, android, mise, appdir, ... }:
 
 let
 	# Install this cask onto the bulk store instead of /Applications. appdir only
@@ -28,7 +28,8 @@ in
 	# Spotlight are started by launchd, which never sources a shell profile, so
 	# they need registering here too. Without it, an emulator created in Android
 	# Studio's Device Manager lands in ~/.android/avd on the internal drive -
-	# exactly what bulkStore exists to avoid.
+	# exactly what bulkStore exists to avoid. The same goes for an editor that
+	# runs mise and would otherwise install tools under ~/.local/share/mise.
 	#
 	# This is an agent rather than `launchd.user.envVariables`, which nix-darwin
 	# implements as a bare `launchctl setenv` inside the activation script. The
@@ -38,11 +39,11 @@ in
 	# the values were gone by the next restart. RunAtLoad re-runs them at every
 	# login, and activation loads the agent, so a rebuild still applies them
 	# without logging out.
-	launchd.user.agents.android-env = {
+	launchd.user.agents.bulk-store-env = {
 		script = lib.concatLines (
 			lib.mapAttrsToList
 				(name: value: "/bin/launchctl setenv ${name} ${lib.escapeShellArg value}")
-				android.env
+				(android.env // mise.env)
 		);
 		serviceConfig.RunAtLoad = true;
 	};

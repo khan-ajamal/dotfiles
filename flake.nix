@@ -58,10 +58,19 @@
 					}
 				);
 			};
+
+			# mise's tool installs (node, python, go, rust, ...) run to gigabytes,
+			# and its download cache grows with them. Shared by home.nix and
+			# configuration.nix for the same reason as android.env.
+			mise.env =
+				if bulkStore == null then { } else {
+					MISE_DATA_DIR = "${bulkStore}/.local/share/mise";
+					MISE_CACHE_DIR = "${bulkStore}/.cache/mise";
+				};
 		in
 		{
 			darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
-				specialArgs = { inherit user android appdir; };
+				specialArgs = { inherit user android mise appdir; };
 				modules = [
 					./configuration.nix
 					nix-homebrew.darwinModules.nix-homebrew
@@ -69,7 +78,7 @@
 					{
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
-						home-manager.extraSpecialArgs = { inherit user android; };
+						home-manager.extraSpecialArgs = { inherit user android mise; };
 						home-manager.users.${user} = import ./home.nix;
 						home-manager.backupFileExtension = "backup";
 					}
