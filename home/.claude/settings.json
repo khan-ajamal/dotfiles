@@ -69,5 +69,6 @@
   "awaySummaryEnabled": false,
   "theme": "dark-ansi",
   "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "statusLine": {"type": "command", "command": "/Volumes/SSD/.local/share/mise/installs/python/3.14.10/bin/python3.14 /Volumes/SSD/development/mobile-apps/mobile-dock/tools/statusline.py"}
 }
