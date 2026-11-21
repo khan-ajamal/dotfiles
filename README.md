@@ -70,7 +70,7 @@ bulkStore = "/Volumes/SSD";   # or null
 ```
 
 The paths are derived once in `flake.nix` as `android` and `mise` (mise's tool
-installs and download cache), then consumed twice,
+installs, download cache and trust records), then consumed twice,
 because macOS has two separate environments:
 
 - `home.nix` puts them in `home.sessionVariables`, which reaches anything started

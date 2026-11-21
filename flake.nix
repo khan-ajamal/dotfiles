@@ -60,12 +60,15 @@
 			};
 
 			# mise's tool installs (node, python, go, rust, ...) run to gigabytes,
-			# and its download cache grows with them. Shared by home.nix and
-			# configuration.nix for the same reason as android.env.
+			# and its download cache grows with them. State (`mise trust` records)
+			# is tiny but moves too, so no mise write lands on the internal drive.
+			# Shared by home.nix and configuration.nix for the same reason as
+			# android.env.
 			mise.env =
 				if bulkStore == null then { } else {
 					MISE_DATA_DIR = "${bulkStore}/.local/share/mise";
 					MISE_CACHE_DIR = "${bulkStore}/.cache/mise";
+					MISE_STATE_DIR = "${bulkStore}/.local/state/mise";
 				};
 		in
 		{
