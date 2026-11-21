@@ -18,7 +18,9 @@
     "grafana-cloud@grafana-skills": true,
     "expo@claude-plugins-official": true,
     "mongodb-atlas@claude-plugins-official": true,
-    "ui-ux-pro-max@ui-ux-pro-max-skill": true
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "swift-lsp@claude-plugins-official": true,
+    "resend@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -68,6 +70,7 @@
   },
   "awaySummaryEnabled": false,
   "theme": "dark-ansi",
+  "switchModelsOnFlag": false,
   "remoteControlAtStartup": false,
   "agentPushNotifEnabled": false,
   "statusLine": {"type": "command", "command": "/Volumes/SSD/.local/share/mise/installs/python/3.14.10/bin/python3.14 /Volumes/SSD/development/mobile-apps/mobile-dock/tools/statusline.py"}
