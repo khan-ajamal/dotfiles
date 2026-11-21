@@ -128,6 +128,8 @@ in
 		brews = [
 			"cocoapods"
 			"gh"
+			# Controls external monitors (brightness, volume, input) over DDC.
+			"m1ddc"
 			# mongodump, mongorestore, mongoexport, mongoimport and friends.
 			"mongodb/brew/mongodb-database-tools"
 		];
@@ -139,6 +141,11 @@ in
 			"codex"
 			"obsidian"
 			"visual-studio-code"
+
+			# Google Cloud CLI: gcloud, gsutil, bq. A cask rather than nixpkgs'
+			# google-cloud-sdk, so `gcloud components install` can still write
+			# to its own install dir instead of the read-only nix store.
+			"gcloud-cli"
 
 			# API client. Collections are plain .bru files on disk, so they
 			# live in the project repo instead of a vendor cloud account.
