@@ -17,6 +17,15 @@
   If something clearly looks off, even if it is not directly related to what you are doing, try to get it fixed along the way.
 - Apply that same high standard to engineering excellence: lint, test failures, and test flakiness.
   If you see one, even if it is not caused by what you are working on right now, still get it fixed.
+- Treat a code review finding as a symptom, not a task. Before changing code, step back:
+  why does this code exist, what problem was our change solving, and does the finding mean
+  the approach itself is wrong? Fix the cause, not the line.
+  Before fixing, trace what the fix touches (callers, tests, alerts, dashboards, docs).
+  A fix that adds a new code path is new code that will need its own review, so first ask
+  whether accepting the limit, or removing code, is better. (Fixing one low finding with a
+  new code path once caused 15 findings over the next three review rounds.)
+  Show me findings grouped by root cause, with one recommendation per group
+  (fix, accept, or rethink), not a list to fix one by one.
 - Before you run each command, tell me in plain words what you are about to do and which command you will use.
 - Before using "dynamic workflows", "ultra code" or any harness feature that immediately spawns a large swarm of subagents, always explain the tradeoffs and ask the user for explicit approval.
 
